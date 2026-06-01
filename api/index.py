@@ -1,12 +1,10 @@
 """
-FastAPI backend for Telco Customer Churn Prediction.
+FastAPI backend for Telco Customer Churn Prediction (Pure Python Inference).
 Endpoint: POST /api/predict
 """
 
 import os
-import joblib
-import numpy as np
-import pandas as pd
+import json
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -14,21 +12,21 @@ from typing import Optional
 
 # ─── Paths ───────────────────────────────────────────────────────────
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_DIR = os.path.join(SCRIPT_DIR, "model")
-MODEL_PATH = os.path.join(MODEL_DIR, "churn_model.pkl")
-ENCODERS_PATH = os.path.join(MODEL_DIR, "label_encoders.pkl")
-SCALER_PATH = os.path.join(MODEL_DIR, "scaler.pkl")
-COLUMNS_PATH = os.path.join(MODEL_DIR, "columns.pkl")
+MODEL_EXPORT_PATH = os.path.join(SCRIPT_DIR, "model", "model_export.json")
 
-# ─── Load model artifacts ───────────────────────────────────────────
-model = joblib.load(MODEL_PATH)
-label_encoders = joblib.load(ENCODERS_PATH)
-scaler = joblib.load(SCALER_PATH)
-columns_info = joblib.load(COLUMNS_PATH)
+# ─── Load JSON model ────────────────────────────────────────────────
+if not os.path.exists(MODEL_EXPORT_PATH):
+    raise RuntimeError(f"Model export file not found at: {MODEL_EXPORT_PATH}")
 
-feature_columns = columns_info["feature_columns"]
-categorical_cols = columns_info["categorical_cols"]
-numerical_cols = columns_info["numerical_cols"]
+with open(MODEL_EXPORT_PATH, "r") as f:
+    model_data = json.load(f)
+
+feature_columns = model_data["feature_columns"]
+categorical_cols = model_data["categorical_cols"]
+numerical_cols = model_data["numerical_cols"]
+label_encoders = model_data["label_encoders"]
+scaler_info = model_data["scaler"]
+trees = model_data["trees"]
 
 # ─── FastAPI App ─────────────────────────────────────────────────────
 app = FastAPI(
@@ -81,6 +79,30 @@ class PredictionResponse(BaseModel):
     recommendation: str
 
 
+# Helper function for traversing a tree
+def predict_tree(tree, x):
+    node = 0
+    children_left = tree["children_left"]
+    children_right = tree["children_right"]
+    feature = tree["feature"]
+    threshold = tree["threshold"]
+    value = tree["value"]
+    
+    while True:
+        left = children_left[node]
+        right = children_right[node]
+        if left == -1 and right == -1:
+            return value[node][0]
+        
+        feat = feature[node]
+        val = x[feat]
+        thresh = threshold[node]
+        if val <= thresh:
+            node = left
+        else:
+            node = right
+
+
 # ─── Endpoints ───────────────────────────────────────────────────────
 @app.get("/api/health")
 def health_check():
@@ -90,29 +112,35 @@ def health_check():
 @app.post("/api/predict", response_model=PredictionResponse)
 def predict_churn(customer: CustomerData):
     try:
-        # Build dataframe from input
+        # Build dict from input
         data = customer.model_dump()
-        df = pd.DataFrame([data])
 
-        # Encode categorical columns
-        for col in categorical_cols:
-            if col in df.columns:
-                le = label_encoders[col]
-                try:
-                    df[col] = le.transform(df[col].astype(str))
-                except ValueError:
-                    # Handle unseen labels — use the most common class
-                    df[col] = le.transform([le.classes_[0]])[0]
+        # Preprocess features into a flat list in the correct order
+        x_features = []
+        for col in feature_columns:
+            if col in numerical_cols:
+                val = float(data[col])
+                # Scale
+                idx = numerical_cols.index(col)
+                mean = scaler_info["mean"][idx]
+                scale = scaler_info["scale"][idx]
+                scaled = (val - mean) / scale
+                x_features.append(scaled)
+            else:
+                val_str = str(data[col])
+                encoded_dict = label_encoders[col]
+                # Default to 0 or first class value if category is unseen
+                encoded = encoded_dict.get(val_str, 0)
+                x_features.append(encoded)
 
-        # Scale numerical columns
-        df[numerical_cols] = scaler.transform(df[numerical_cols])
+        # Predict churn probability by averaging the predictions from all trees
+        probs = []
+        for tree in trees:
+            val = predict_tree(tree, x_features)
+            # val is [prob_class_0, prob_class_1]
+            probs.append(val[1])
 
-        # Ensure column order matches training
-        df = df[feature_columns]
-
-        # Predict
-        proba = model.predict_proba(df)[0]
-        churn_prob = float(proba[1]) * 100  # percentage
+        churn_prob = (sum(probs) / len(probs)) * 100  # percentage
 
         # Determine risk level
         if churn_prob < 30:
@@ -143,9 +171,10 @@ def model_info():
     """Return model metadata and feature information."""
     return {
         "model_type": "RandomForestClassifier",
-        "n_estimators": 200,
+        "n_estimators": len(trees),
         "features": feature_columns,
         "categorical_features": categorical_cols,
         "numerical_features": numerical_cols,
         "total_features": len(feature_columns),
     }
+

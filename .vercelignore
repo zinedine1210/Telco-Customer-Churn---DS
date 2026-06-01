@@ -1,0 +1,21 @@
+# Local virtualenv and dependencies
+venv/
+node_modules/
+
+# Next.js build directories
+.next/
+out/
+build/
+
+# Dataset
+telco_customer_churn.csv
+
+# ML Training files (heavy pkl and code)
+api/model/churn_model.pkl
+api/model/label_encoders.pkl
+api/model/scaler.pkl
+api/model/columns.pkl
+api/model/train_model.py
+api/model/export_model.py
+api/model/__pycache__/
+api/__pycache__/
