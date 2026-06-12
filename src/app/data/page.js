@@ -3,20 +3,20 @@
 import { useState, useEffect, useCallback } from 'react';
 
 const COLUMNS = [
-  { key: 'customerID', label: 'Customer ID', sortable: true },
-  { key: 'gender', label: 'Gender', sortable: true },
-  { key: 'SeniorCitizen', label: 'Senior', sortable: true },
-  { key: 'Partner', label: 'Partner', sortable: true },
-  { key: 'Dependents', label: 'Dependents', sortable: true },
-  { key: 'tenure', label: 'Tenure', sortable: true },
-  { key: 'PhoneService', label: 'Phone', sortable: true },
-  { key: 'InternetService', label: 'Internet', sortable: true },
-  { key: 'Contract', label: 'Contract', sortable: true },
-  { key: 'PaperlessBilling', label: 'Paperless', sortable: true },
-  { key: 'PaymentMethod', label: 'Payment', sortable: true },
-  { key: 'MonthlyCharges', label: 'Monthly ($)', sortable: true },
-  { key: 'TotalCharges', label: 'Total ($)', sortable: true },
-  { key: 'Churn', label: 'Churn', sortable: true },
+  { key: 'customerID', label: 'ID Pelanggan', sortable: true },
+  { key: 'gender', label: 'Jenis Kelamin', sortable: true },
+  { key: 'SeniorCitizen', label: 'Lansia', sortable: true },
+  { key: 'Partner', label: 'Pasangan', sortable: true },
+  { key: 'Dependents', label: 'Tanggungan', sortable: true },
+  { key: 'tenure', label: 'Tenure (Bulan)', sortable: true },
+  { key: 'PhoneService', label: 'Telepon', sortable: true },
+  { key: 'InternetService', label: 'Layanan Internet', sortable: true },
+  { key: 'Contract', label: 'Kontrak', sortable: true },
+  { key: 'PaperlessBilling', label: 'Tagihan Tanpa Kertas', sortable: true },
+  { key: 'PaymentMethod', label: 'Metode Pembayaran', sortable: true },
+  { key: 'MonthlyCharges', label: 'Biaya Bulanan ($)', sortable: true },
+  { key: 'TotalCharges', label: 'Total Biaya ($)', sortable: true },
+  { key: 'Churn', label: 'Status Churn', sortable: true },
 ];
 
 export default function DataPage() {
@@ -126,8 +126,8 @@ export default function DataPage() {
   return (
     <div className="page-container">
       <div className="dashboard-section">
-        <h1 className="dashboard-page-title">Data Explorer</h1>
-        <p className="dashboard-page-desc">Jelajahi data {total.toLocaleString()} pelanggan telekomunikasi</p>
+        <h1 className="dashboard-page-title">Eksplorasi Data</h1>
+        <p className="dashboard-page-desc">Jelajahi data {total.toLocaleString()} pelanggan telekomunikasi secara interaktif</p>
       </div>
 
       {/* Filters */}
@@ -136,7 +136,7 @@ export default function DataPage() {
           <input
             type="text"
             className="form-input"
-            placeholder="Cari Customer ID..."
+            placeholder="Cari ID Pelanggan..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             id="search-input"
@@ -144,44 +144,44 @@ export default function DataPage() {
         </form>
 
         <div className="filter-selects">
-          <select className="form-select filter-select" value={filterGender} onChange={handleFilterChange(setFilterGender)} id="filter-gender">
+          <select className="form-select filter-select" value={filterGender} onChange={handleFilterChange(filterGender => setFilterGender(filterGender))} id="filter-gender">
             <option value="">Semua Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+            <option value="Male">Laki-laki</option>
+            <option value="Female">Perempuan</option>
           </select>
 
-          <select className="form-select filter-select" value={filterSenior} onChange={handleFilterChange(setFilterSenior)} id="filter-senior">
+          <select className="form-select filter-select" value={filterSenior} onChange={handleFilterChange(filterSenior => setFilterSenior(filterSenior))} id="filter-senior">
             <option value="">Semua Usia</option>
-            <option value="0">Non-Senior</option>
-            <option value="1">Senior</option>
+            <option value="0">Bukan Lansia</option>
+            <option value="1">Lansia</option>
           </select>
 
-          <select className="form-select filter-select" value={filterContract} onChange={handleFilterChange(setFilterContract)} id="filter-contract">
-            <option value="">Semua Contract</option>
-            <option value="Month-to-month">Month-to-month</option>
-            <option value="One year">One year</option>
-            <option value="Two year">Two year</option>
+          <select className="form-select filter-select" value={filterContract} onChange={handleFilterChange(filterContract => setFilterContract(filterContract))} id="filter-contract">
+            <option value="">Semua Kontrak</option>
+            <option value="Month-to-month">Bulanan</option>
+            <option value="One year">1 Tahun</option>
+            <option value="Two year">2 Tahun</option>
           </select>
 
-          <select className="form-select filter-select" value={filterInternet} onChange={handleFilterChange(setFilterInternet)} id="filter-internet">
+          <select className="form-select filter-select" value={filterInternet} onChange={handleFilterChange(filterInternet => setFilterInternet(filterInternet))} id="filter-internet">
             <option value="">Semua Internet</option>
             <option value="DSL">DSL</option>
-            <option value="Fiber optic">Fiber optic</option>
-            <option value="No">Tidak ada</option>
+            <option value="Fiber optic">Serat Optik</option>
+            <option value="No">Tanpa Internet</option>
           </select>
 
-          <select className="form-select filter-select" value={filterPayment} onChange={handleFilterChange(setFilterPayment)} id="filter-payment">
-            <option value="">Semua Payment</option>
-            <option value="Electronic check">Electronic check</option>
-            <option value="Mailed check">Mailed check</option>
-            <option value="Bank transfer (automatic)">Bank transfer</option>
-            <option value="Credit card (automatic)">Credit card</option>
+          <select className="form-select filter-select" value={filterPayment} onChange={handleFilterChange(filterPayment => setFilterPayment(filterPayment))} id="filter-payment">
+            <option value="">Semua Pembayaran</option>
+            <option value="Electronic check">Cek Elektronik</option>
+            <option value="Mailed check">Cek Fisik</option>
+            <option value="Bank transfer (automatic)">Transfer Bank (Otomatis)</option>
+            <option value="Credit card (automatic)">Kartu Kredit (Otomatis)</option>
           </select>
 
-          <select className="form-select filter-select" value={filterChurn} onChange={handleFilterChange(setFilterChurn)} id="filter-churn">
+          <select className="form-select filter-select" value={filterChurn} onChange={handleFilterChange(filterChurn => setFilterChurn(filterChurn))} id="filter-churn">
             <option value="">Semua Status</option>
             <option value="Yes">Churn</option>
-            <option value="No">Retained</option>
+            <option value="No">Bertahan</option>
           </select>
 
           <button className="filter-clear-btn" onClick={clearFilters} type="button">
@@ -224,13 +224,40 @@ export default function DataPage() {
             ) : (
               data.map((row, idx) => (
                 <tr key={row.customerID || idx}>
-                  {COLUMNS.map((col) => (
-                    <td key={col.key} className={col.key === 'Churn' ? `churn-cell ${row[col.key] === 'Yes' ? 'churn-yes' : 'churn-no'}` : ''}>
-                      {col.key === 'SeniorCitizen'
-                        ? (row[col.key] === '1' ? 'Ya' : 'Tidak')
-                        : row[col.key] || '-'}
-                    </td>
-                  ))}
+                  {COLUMNS.map((col) => {
+                    let cellVal = row[col.key];
+
+                    // Translate specific values for display
+                    if (col.key === 'gender') {
+                      cellVal = cellVal === 'Female' ? 'Perempuan' : cellVal === 'Male' ? 'Laki-laki' : cellVal;
+                    } else if (col.key === 'SeniorCitizen') {
+                      cellVal = cellVal === '1' || cellVal === 1 ? 'Lansia' : 'Bukan Lansia';
+                    } else if (['Partner', 'Dependents', 'PhoneService', 'PaperlessBilling', 'Churn'].includes(col.key)) {
+                      cellVal = cellVal === 'Yes' ? 'Ya' : cellVal === 'No' ? 'Tidak' : cellVal;
+                    } else if (col.key === 'InternetService') {
+                      cellVal = cellVal === 'Fiber optic' ? 'Serat Optik' : cellVal === 'No' ? 'Tanpa Internet' : cellVal;
+                    } else if (col.key === 'Contract') {
+                      cellVal = cellVal === 'Month-to-month' ? 'Bulanan' : cellVal === 'One year' ? '1 Tahun' : cellVal === 'Two year' ? '2 Tahun' : cellVal;
+                    } else if (col.key === 'PaymentMethod') {
+                      cellVal = cellVal === 'Electronic check' ? 'Cek Elektronik' 
+                        : cellVal === 'Mailed check' ? 'Cek Fisik' 
+                        : cellVal?.includes('Bank transfer') ? 'Transfer Bank (Otomatis)' 
+                        : cellVal?.includes('Credit card') ? 'Kartu Kredit (Otomatis)' 
+                        : cellVal;
+                    } else if (col.key === 'MultipleLines' || col.key === 'OnlineSecurity' || col.key === 'OnlineBackup' || col.key === 'DeviceProtection' || col.key === 'TechSupport' || col.key === 'StreamingTV' || col.key === 'StreamingMovies') {
+                      cellVal = cellVal === 'Yes' ? 'Ya' 
+                        : cellVal === 'No' ? 'Tidak' 
+                        : cellVal === 'No internet service' ? 'Tanpa Internet'
+                        : cellVal === 'No phone service' ? 'Tanpa Telepon'
+                        : cellVal;
+                    }
+
+                    return (
+                      <td key={col.key} className={col.key === 'Churn' ? `churn-cell ${row[col.key] === 'Yes' ? 'churn-yes' : 'churn-no'}` : ''}>
+                        {cellVal || '-'}
+                      </td>
+                    );
+                  })}
                 </tr>
               ))
             )}

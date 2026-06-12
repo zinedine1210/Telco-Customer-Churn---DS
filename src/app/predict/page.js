@@ -100,7 +100,7 @@ export default function PredictPage() {
               </div>
               <div className="form-grid">
                 <div className="form-group">
-                  <label className="form-label" htmlFor="gender">Gender</label>
+                  <label className="form-label" htmlFor="gender">Jenis Kelamin</label>
                   <select
                     id="gender"
                     className="form-select"
@@ -108,13 +108,13 @@ export default function PredictPage() {
                     value={formData.gender}
                     onChange={handleChange}
                   >
-                    <option value="Male">Male (Laki-laki)</option>
-                    <option value="Female">Female (Perempuan)</option>
+                    <option value="Male">Laki-laki (Male)</option>
+                    <option value="Female">Perempuan (Female)</option>
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="seniorCitizen">Senior Citizen</label>
+                  <label className="form-label" htmlFor="seniorCitizen">Lansia (Senior Citizen)</label>
                   <select
                     id="seniorCitizen"
                     className="form-select"
@@ -128,7 +128,7 @@ export default function PredictPage() {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="partner">Partner</label>
+                  <label className="form-label" htmlFor="partner">Memiliki Pasangan (Partner)</label>
                   <select
                     id="partner"
                     className="form-select"
@@ -136,13 +136,13 @@ export default function PredictPage() {
                     value={formData.Partner}
                     onChange={handleChange}
                   >
-                    <option value="Yes">Ya</option>
-                    <option value="No">Tidak</option>
+                    <option value="Yes">Ya (Yes)</option>
+                    <option value="No">Tidak (No)</option>
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="dependents">Dependents</label>
+                  <label className="form-label" htmlFor="dependents">Memiliki Tanggungan (Dependents)</label>
                   <select
                     id="dependents"
                     className="form-select"
@@ -150,8 +150,8 @@ export default function PredictPage() {
                     value={formData.Dependents}
                     onChange={handleChange}
                   >
-                    <option value="Yes">Ya</option>
-                    <option value="No">Tidak</option>
+                    <option value="Yes">Ya (Yes)</option>
+                    <option value="No">Tidak (No)</option>
                   </select>
                 </div>
               </div>
@@ -162,12 +162,12 @@ export default function PredictPage() {
               <div className="form-section-header">
                 <div>
                   <div className="form-section-title">Layanan Telepon</div>
-                  <div className="form-section-desc">Layanan telepon yang digunakan</div>
+                  <div className="form-section-desc">Layanan komunikasi telepon</div>
                 </div>
               </div>
               <div className="form-grid">
                 <div className="form-group">
-                  <label className="form-label" htmlFor="phoneService">Phone Service</label>
+                  <label className="form-label" htmlFor="phoneService">Layanan Telepon (Phone Service)</label>
                   <select
                     id="phoneService"
                     className="form-select"
@@ -175,13 +175,13 @@ export default function PredictPage() {
                     value={formData.PhoneService}
                     onChange={handleChange}
                   >
-                    <option value="Yes">Ya</option>
-                    <option value="No">Tidak</option>
+                    <option value="Yes">Ya (Yes)</option>
+                    <option value="No">Tidak (No)</option>
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="multipleLines">Multiple Lines</label>
+                  <label className="form-label" htmlFor="multipleLines">Multi-Saluran (Multiple Lines)</label>
                   <select
                     id="multipleLines"
                     className="form-select"
@@ -189,8 +189,8 @@ export default function PredictPage() {
                     value={formData.MultipleLines}
                     onChange={handleChange}
                   >
-                    <option value="Yes">Ya</option>
-                    <option value="No">Tidak</option>
+                    <option value="Yes">Ya (Yes)</option>
+                    <option value="No">Tidak (No)</option>
                     <option value="No phone service">Tidak ada layanan telepon</option>
                   </select>
                 </div>
@@ -202,12 +202,12 @@ export default function PredictPage() {
               <div className="form-section-header">
                 <div>
                   <div className="form-section-title">Layanan Internet</div>
-                  <div className="form-section-desc">Layanan internet dan fitur tambahan</div>
+                  <div className="form-section-desc">Koneksi internet dan fitur pengaman tambahan</div>
                 </div>
               </div>
               <div className="form-grid">
                 <div className="form-group">
-                  <label className="form-label" htmlFor="internetService">Internet Service</label>
+                  <label className="form-label" htmlFor="internetService">Layanan Internet (Internet Service)</label>
                   <select
                     id="internetService"
                     className="form-select"
@@ -216,13 +216,13 @@ export default function PredictPage() {
                     onChange={handleChange}
                   >
                     <option value="DSL">DSL</option>
-                    <option value="Fiber optic">Fiber Optic</option>
-                    <option value="No">Tidak ada</option>
+                    <option value="Fiber optic">Serat Optik (Fiber Optic)</option>
+                    <option value="No">Tidak ada (No)</option>
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="onlineSecurity">Online Security</label>
+                  <label className="form-label" htmlFor="onlineSecurity">Keamanan Online (Online Security)</label>
                   <select
                     id="onlineSecurity"
                     className="form-select"
@@ -230,14 +230,14 @@ export default function PredictPage() {
                     value={formData.OnlineSecurity}
                     onChange={handleChange}
                   >
-                    <option value="Yes">Ya</option>
-                    <option value="No">Tidak</option>
+                    <option value="Yes">Ya (Yes)</option>
+                    <option value="No">Tidak (No)</option>
                     <option value="No internet service">Tidak ada internet</option>
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="onlineBackup">Online Backup</label>
+                  <label className="form-label" htmlFor="onlineBackup">Cadangan Online (Online Backup)</label>
                   <select
                     id="onlineBackup"
                     className="form-select"
@@ -245,14 +245,14 @@ export default function PredictPage() {
                     value={formData.OnlineBackup}
                     onChange={handleChange}
                   >
-                    <option value="Yes">Ya</option>
-                    <option value="No">Tidak</option>
+                    <option value="Yes">Ya (Yes)</option>
+                    <option value="No">Tidak (No)</option>
                     <option value="No internet service">Tidak ada internet</option>
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="deviceProtection">Device Protection</label>
+                  <label className="form-label" htmlFor="deviceProtection">Perlindungan Perangkat (Device Protection)</label>
                   <select
                     id="deviceProtection"
                     className="form-select"
@@ -260,14 +260,14 @@ export default function PredictPage() {
                     value={formData.DeviceProtection}
                     onChange={handleChange}
                   >
-                    <option value="Yes">Ya</option>
-                    <option value="No">Tidak</option>
+                    <option value="Yes">Ya (Yes)</option>
+                    <option value="No">Tidak (No)</option>
                     <option value="No internet service">Tidak ada internet</option>
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="techSupport">Tech Support</label>
+                  <label className="form-label" htmlFor="techSupport">Dukungan Teknis (Tech Support)</label>
                   <select
                     id="techSupport"
                     className="form-select"
@@ -275,8 +275,8 @@ export default function PredictPage() {
                     value={formData.TechSupport}
                     onChange={handleChange}
                   >
-                    <option value="Yes">Ya</option>
-                    <option value="No">Tidak</option>
+                    <option value="Yes">Ya (Yes)</option>
+                    <option value="No">Tidak (No)</option>
                     <option value="No internet service">Tidak ada internet</option>
                   </select>
                 </div>
@@ -290,14 +290,14 @@ export default function PredictPage() {
                     value={formData.StreamingTV}
                     onChange={handleChange}
                   >
-                    <option value="Yes">Ya</option>
-                    <option value="No">Tidak</option>
+                    <option value="Yes">Ya (Yes)</option>
+                    <option value="No">Tidak (No)</option>
                     <option value="No internet service">Tidak ada internet</option>
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="streamingMovies">Streaming Movies</label>
+                  <label className="form-label" htmlFor="streamingMovies">Streaming Film (Streaming Movies)</label>
                   <select
                     id="streamingMovies"
                     className="form-select"
@@ -305,8 +305,8 @@ export default function PredictPage() {
                     value={formData.StreamingMovies}
                     onChange={handleChange}
                   >
-                    <option value="Yes">Ya</option>
-                    <option value="No">Tidak</option>
+                    <option value="Yes">Ya (Yes)</option>
+                    <option value="No">Tidak (No)</option>
                     <option value="No internet service">Tidak ada internet</option>
                   </select>
                 </div>
@@ -317,13 +317,13 @@ export default function PredictPage() {
             <div className="form-section">
               <div className="form-section-header">
                 <div>
-                  <div className="form-section-title">Informasi Akun</div>
-                  <div className="form-section-desc">Detail kontrak dan pembayaran</div>
+                  <div className="form-section-title">Informasi Akun & Tagihan</div>
+                  <div className="form-section-desc">Detail kontrak, tarif, dan metode bayar</div>
                 </div>
               </div>
               <div className="form-grid">
                 <div className="form-group">
-                  <label className="form-label" htmlFor="tenure">Tenure (bulan)</label>
+                  <label className="form-label" htmlFor="tenure">Tenure (Bulan)</label>
                   <input
                     id="tenure"
                     className="form-input"
@@ -338,7 +338,7 @@ export default function PredictPage() {
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="contract">Contract</label>
+                  <label className="form-label" htmlFor="contract">Kontrak (Contract)</label>
                   <select
                     id="contract"
                     className="form-select"
@@ -347,13 +347,13 @@ export default function PredictPage() {
                     onChange={handleChange}
                   >
                     <option value="Month-to-month">Bulanan (Month-to-month)</option>
-                    <option value="One year">1 Tahun</option>
-                    <option value="Two year">2 Tahun</option>
+                    <option value="One year">1 Tahun (One year)</option>
+                    <option value="Two year">2 Tahun (Two year)</option>
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="paperlessBilling">Paperless Billing</label>
+                  <label className="form-label" htmlFor="paperlessBilling">Tagihan Tanpa Kertas (Paperless Billing)</label>
                   <select
                     id="paperlessBilling"
                     className="form-select"
@@ -361,13 +361,13 @@ export default function PredictPage() {
                     value={formData.PaperlessBilling}
                     onChange={handleChange}
                   >
-                    <option value="Yes">Ya</option>
-                    <option value="No">Tidak</option>
+                    <option value="Yes">Ya (Yes)</option>
+                    <option value="No">Tidak (No)</option>
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="paymentMethod">Payment Method</label>
+                  <label className="form-label" htmlFor="paymentMethod">Metode Pembayaran (Payment Method)</label>
                   <select
                     id="paymentMethod"
                     className="form-select"
@@ -375,15 +375,15 @@ export default function PredictPage() {
                     value={formData.PaymentMethod}
                     onChange={handleChange}
                   >
-                    <option value="Electronic check">Electronic Check</option>
-                    <option value="Mailed check">Mailed Check</option>
-                    <option value="Bank transfer (automatic)">Bank Transfer (Otomatis)</option>
-                    <option value="Credit card (automatic)">Credit Card (Otomatis)</option>
+                    <option value="Electronic check">Cek Elektronik (Electronic Check)</option>
+                    <option value="Mailed check">Cek Fisik (Mailed Check)</option>
+                    <option value="Bank transfer (automatic)">Transfer Bank (Otomatis)</option>
+                    <option value="Credit card (automatic)">Kartu Kredit (Otomatis)</option>
                   </select>
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="monthlyCharges">Monthly Charges ($)</label>
+                  <label className="form-label" htmlFor="monthlyCharges">Biaya Bulanan ($)</label>
                   <input
                     id="monthlyCharges"
                     className="form-input"
@@ -393,12 +393,12 @@ export default function PredictPage() {
                     step="0.01"
                     value={formData.MonthlyCharges}
                     onChange={handleChange}
-                    placeholder="Biaya bulanan"
+                    placeholder="Biaya tagihan bulanan"
                   />
                 </div>
 
                 <div className="form-group">
-                  <label className="form-label" htmlFor="totalCharges">Total Charges ($)</label>
+                  <label className="form-label" htmlFor="totalCharges">Total Biaya Akumulasi ($)</label>
                   <input
                     id="totalCharges"
                     className="form-input"
@@ -408,7 +408,7 @@ export default function PredictPage() {
                     step="0.01"
                     value={formData.TotalCharges}
                     onChange={handleChange}
-                    placeholder="Total biaya"
+                    placeholder="Total akumulasi biaya"
                   />
                 </div>
               </div>
@@ -443,10 +443,10 @@ export default function PredictPage() {
                 {loading ? (
                   <>
                     <div className="spinner"></div>
-                    Memproses...
+                    Memproses Prediksi...
                   </>
                 ) : (
-                  'Prediksi Sekarang'
+                  'Mulai Prediksi'
                 )}
               </button>
               {result && (
@@ -462,7 +462,7 @@ export default function PredictPage() {
                     cursor: 'pointer',
                   }}
                 >
-                  Reset Form
+                  Reset Formulir
                 </button>
               )}
             </div>
@@ -482,7 +482,7 @@ export default function PredictPage() {
               <div className="placeholder-icon">📊</div>
               <h3>Belum Ada Hasil Prediksi</h3>
               <p>
-                Isi formulir data pelanggan di sebelah kiri, kemudian klik tombol <strong>Prediksi Sekarang</strong> di bawah untuk memproses dan menganalisis probabilitas churn pelanggan secara real-time di panel ini.
+                Isi formulir data pelanggan di sebelah kiri, kemudian klik tombol <strong>Mulai Prediksi</strong> di bawah untuk memproses dan menganalisis probabilitas churn pelanggan secara real-time di panel ini.
               </p>
             </div>
           )}

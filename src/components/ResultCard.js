@@ -43,7 +43,7 @@ export default function ResultCard({ result, formData, onReset }) {
     if (formData.Contract === 'Month-to-month') {
       factors.push({
         type: 'risk',
-        title: 'Kontrak Month-to-month',
+        title: 'Kontrak Bulanan (Month-to-month)',
         description: 'Tipe kontrak bulanan memiliki korelasi tertinggi dengan churn rate sebesar 42.7%.'
       });
     } else if (formData.Contract === 'Two year') {
@@ -79,13 +79,13 @@ export default function ResultCard({ result, formData, onReset }) {
     if (formData.PaymentMethod === 'Electronic check') {
       factors.push({
         type: 'risk',
-        title: 'Metode Electronic Check',
+        title: 'Metode Cek Elektronik (Electronic Check)',
         description: 'Metode non-otomatis ini mendominasi kasus churn dengan tingkat churn rate 45.3%.'
       });
     } else if (formData.PaymentMethod?.includes('automatic')) {
       factors.push({
         type: 'retention',
-        title: 'Auto-Pay Terintegrasi',
+        title: 'Pembayaran Otomatis (Auto-Pay)',
         description: 'Metode pembayaran otomatis mengurangi gesekan billing dengan churn rate ~15-16%.'
       });
     }
@@ -94,7 +94,7 @@ export default function ResultCard({ result, formData, onReset }) {
     if (formData.InternetService === 'Fiber optic') {
       factors.push({
         type: 'risk',
-        title: 'Layanan Internet Fiber Optic',
+        title: 'Layanan Internet Serat Optik (Fiber Optic)',
         description: 'Memiliki churn rate tinggi (41.9%), sering terkait biaya bulanan tinggi atau ketidakpuasan performa.'
       });
     } else if (formData.InternetService === 'No') {
@@ -109,7 +109,7 @@ export default function ResultCard({ result, formData, onReset }) {
     if (formData.SeniorCitizen === 1) {
       factors.push({
         type: 'risk',
-        title: 'Kategori Senior Citizen',
+        title: 'Kategori Lansia (Senior Citizen)',
         description: 'Pelanggan usia lanjut memiliki churn rate lebih tinggi (41.7%) dibanding rata-rata.'
       });
     }
@@ -119,13 +119,13 @@ export default function ResultCard({ result, formData, onReset }) {
       if (formData.OnlineSecurity === 'No') {
         factors.push({
           type: 'risk',
-          title: 'Tanpa Online Security',
+          title: 'Tanpa Keamanan Online (Online Security)',
           description: 'Ketiadaan fitur proteksi tambahan mengurangi keterikatan pelanggan terhadap produk.'
         });
       } else if (formData.OnlineSecurity === 'Yes') {
         factors.push({
           type: 'retention',
-          title: 'Menggunakan Online Security',
+          title: 'Menggunakan Keamanan Online (Online Security)',
           description: 'Keamanan ekstra meningkatkan kenyamanan dan retensi pengguna internet.'
         });
       }
@@ -133,13 +133,13 @@ export default function ResultCard({ result, formData, onReset }) {
       if (formData.TechSupport === 'No') {
         factors.push({
           type: 'risk',
-          title: 'Tanpa Tech Support',
+          title: 'Tanpa Dukungan Teknis (Tech Support)',
           description: 'Tidak adanya dukungan teknis langsung meningkatkan risiko churn saat terjadi kendala.'
         });
       } else if (formData.TechSupport === 'Yes') {
         factors.push({
           type: 'retention',
-          title: 'Menggunakan Tech Support',
+          title: 'Menggunakan Dukungan Teknis (Tech Support)',
           description: 'Bantuan teknis yang sigap menjaga loyalitas pelanggan saat ada hambatan jaringan.'
         });
       }
@@ -160,6 +160,29 @@ export default function ResultCard({ result, formData, onReset }) {
       });
     }
   }
+
+  // Display-friendly translations for form inputs
+  const getContractDisplay = (val) => {
+    if (val === 'Month-to-month') return 'Bulanan (Month-to-month)';
+    if (val === 'One year') return '1 Tahun (One year)';
+    if (val === 'Two year') return '2 Tahun (Two year)';
+    return val;
+  };
+
+  const getPaymentDisplay = (val) => {
+    if (val === 'Electronic check') return 'Cek Elektronik (Electronic Check)';
+    if (val === 'Mailed check') return 'Cek Fisik (Mailed Check)';
+    if (val?.includes('Bank transfer')) return 'Transfer Bank (Otomatis)';
+    if (val?.includes('Credit card')) return 'Kartu Kredit (Otomatis)';
+    return val;
+  };
+
+  const getInternetDisplay = (val) => {
+    if (val === 'DSL') return 'DSL';
+    if (val === 'Fiber optic') return 'Serat Optik (Fiber Optic)';
+    if (val === 'No') return 'Tanpa Internet';
+    return val;
+  };
 
   return (
     <div className="predict-result-card">
@@ -193,7 +216,7 @@ export default function ResultCard({ result, formData, onReset }) {
             </span>
           </div>
           <div className={`result-prediction ${prediction === 'Churn' ? 'churn' : 'not-churn'}`} style={{ fontSize: '18px' }}>
-            {prediction === 'Churn' ? 'Prediksi: Churn' : 'Prediksi: Retained (Tetap)'}
+            {prediction === 'Churn' ? 'Prediksi: Churn' : 'Prediksi: Bertahan (Retained)'}
           </div>
         </div>
       </div>
@@ -213,8 +236,8 @@ export default function ResultCard({ result, formData, onReset }) {
         </h3>
         <div className="features-summary-grid" style={{ gap: '10px', fontSize: '12px' }}>
           <div className="feature-summary-item">
-            <span className="feat-lbl">Gender / Usia:</span>
-            <span className="feat-val">{formData.gender === 'Male' ? 'Laki-laki' : 'Perempuan'} / {formData.SeniorCitizen === 1 ? 'Senior' : 'Muda'}</span>
+            <span className="feat-lbl">Jenis Kelamin / Usia:</span>
+            <span className="feat-val">{formData.gender === 'Male' ? 'Laki-laki' : 'Perempuan'} / {formData.SeniorCitizen === 1 ? 'Lansia' : 'Bukan Lansia'}</span>
           </div>
           <div className="feature-summary-item">
             <span className="feat-lbl">Tenure:</span>
@@ -222,19 +245,19 @@ export default function ResultCard({ result, formData, onReset }) {
           </div>
           <div className="feature-summary-item">
             <span className="feat-lbl">Kontrak:</span>
-            <span className="feat-val">{formData.Contract}</span>
+            <span className="feat-val">{getContractDisplay(formData.Contract)}</span>
           </div>
           <div className="feature-summary-item">
             <span className="feat-lbl">Metode Bayar:</span>
-            <span className="feat-val">{formData.PaymentMethod}</span>
+            <span className="feat-val">{getPaymentDisplay(formData.PaymentMethod)}</span>
           </div>
           <div className="feature-summary-item">
-            <span className="feat-lbl">Internet Service:</span>
-            <span className="feat-val">{formData.InternetService}</span>
+            <span className="feat-lbl">Layanan Internet:</span>
+            <span className="feat-val">{getInternetDisplay(formData.InternetService)}</span>
           </div>
           <div className="feature-summary-item">
-            <span className="feat-lbl">Security / Support:</span>
-            <span className="feat-val">{formData.OnlineSecurity === 'Yes' ? 'Ada' : 'Tidak'} / {formData.TechSupport === 'Yes' ? 'Ada' : 'Tidak'}</span>
+            <span className="feat-lbl">Keamanan / Dukungan:</span>
+            <span className="feat-val">{formData.OnlineSecurity === 'Yes' ? 'Aktif' : 'Nonaktif'} / {formData.TechSupport === 'Yes' ? 'Aktif' : 'Nonaktif'}</span>
           </div>
           <div className="feature-summary-item">
             <span className="feat-lbl">Tagihan Bulanan:</span>

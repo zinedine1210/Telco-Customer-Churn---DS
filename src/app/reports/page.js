@@ -2,13 +2,13 @@ export default function ReportsPage() {
   return (
     <div className="page-container">
       <div className="dashboard-section">
-        <h1 className="dashboard-page-title">Reports</h1>
+        <h1 className="dashboard-page-title">Laporan Analisis</h1>
         <p className="dashboard-page-desc">Laporan analisis berdasarkan dataset 7,043 pelanggan telekomunikasi</p>
       </div>
 
-      {/* Section 1: Key Findings */}
+      {/* Section 1: Temuan Utama */}
       <div className="report-section">
-        <h2 className="report-section-title">Key Findings</h2>
+        <h2 className="report-section-title">Temuan Utama</h2>
         <p className="report-section-desc">Temuan utama dari analisis data customer churn</p>
 
         <div className="findings-list">
@@ -78,9 +78,9 @@ export default function ReportsPage() {
         </div>
       </div>
 
-      {/* Section 2: Model Performance */}
+      {/* Section 2: Performa Model */}
       <div className="report-section">
-        <h2 className="report-section-title">Model Performance</h2>
+        <h2 className="report-section-title">Performa Model</h2>
         <p className="report-section-desc">Performa model machine learning yang digunakan untuk prediksi churn</p>
 
         <div className="model-stats-grid">
@@ -180,9 +180,9 @@ export default function ReportsPage() {
             <thead>
               <tr>
                 <th>Kategori</th>
-                <th>Breakdown</th>
+                <th>Rincian</th>
                 <th>Jumlah</th>
-                <th>Churn Rate</th>
+                <th>Tingkat Churn</th>
               </tr>
             </thead>
             <tbody>

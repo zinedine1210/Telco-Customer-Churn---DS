@@ -10,16 +10,16 @@ export default function Sidebar() {
     { href: '/', label: 'Dashboard' },
     { href: '/predict', label: 'Prediksi' },
     { href: '/data', label: 'Data' },
-    { href: '/reports', label: 'Reports' },
+    { href: '/reports', label: 'Laporan' },
   ];
 
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <img src="/logo_telco_churn.png" alt="Logo" className="sidebar-logo-img" />
+        <div className="sidebar-logo-box">TCA</div>
         <div>
           <div className="sidebar-title">Telco Churn Analyzer</div>
-          <div className="sidebar-subtitle">Customer Churn Analysis</div>
+          <div className="sidebar-subtitle">CUSTOMER CHURN ANALYSIS</div>
         </div>
       </div>
 

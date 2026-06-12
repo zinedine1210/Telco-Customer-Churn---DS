@@ -3,10 +3,10 @@
 import { usePathname } from 'next/navigation';
 
 const pageTitles = {
-  '/': { title: 'Dashboard', breadcrumb: 'Overview' },
+  '/': { title: 'Dashboard', breadcrumb: 'Ringkasan' },
   '/predict': { title: 'Prediksi Churn', breadcrumb: 'Analisis Pelanggan' },
-  '/data': { title: 'Data Explorer', breadcrumb: 'Tabel Data' },
-  '/reports': { title: 'Reports', breadcrumb: 'Laporan Analisis' },
+  '/data': { title: 'Data Pelanggan', breadcrumb: 'Eksplorasi Data' },
+  '/reports': { title: 'Laporan Analisis', breadcrumb: 'Hasil Laporan' },
 };
 
 export default function AppBar() {
