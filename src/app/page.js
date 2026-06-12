@@ -7,8 +7,8 @@ export default function DashboardPage() {
         <p className="dashboard-page-desc">Ringkasan data 7,043 pelanggan telekomunikasi</p>
       </div>
 
-      <div className="stats-grid stats-grid-6">
-        <div className="stat-card">
+      <div className="stats-grid-3">
+        <div className="stat-card stat-card-total">
           <div className="stat-label">Total Pelanggan</div>
           <div className="stat-value">7,043</div>
         </div>
@@ -22,22 +22,22 @@ export default function DashboardPage() {
           <div className="stat-value">5,174</div>
           <div className="stat-change positive">73.5%</div>
         </div>
-        <div className="stat-card">
+        <div className="stat-card stat-card-tenure">
           <div className="stat-label">Avg Tenure</div>
-          <div className="stat-value">32.4</div>
-          <div className="stat-sub">bulan</div>
+          <div className="stat-value">32.4 <span style={{ fontSize: '14px', fontWeight: '500', color: 'var(--text-muted)', marginLeft: '4px' }}>bulan</span></div>
         </div>
-        <div className="stat-card">
+        <div className="stat-card stat-card-monthly">
           <div className="stat-label">Avg Monthly Charges</div>
           <div className="stat-value">$64.76</div>
         </div>
-        <div className="stat-card">
+        <div className="stat-card stat-card-total-charges">
           <div className="stat-label">Avg Total Charges</div>
           <div className="stat-value">$2,280</div>
         </div>
       </div>
 
       {/* Charts Row 1: Donut + Contract */}
+      {/* Charts Row 1: Donut (Churn) + Pie (Gender) */}
       <div className="chart-row">
         {/* Donut Chart: Churn Distribution */}
         <div className="chart-card">
@@ -69,6 +69,43 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* Pie Chart: Gender Distribution */}
+        <div className="chart-card">
+          <div className="chart-title">Distribusi Pelanggan Berdasarkan Gender</div>
+          <div className="gender-pie-layout">
+            <div className="pie-chart-wrapper">
+              <div className="pie-chart" style={{ background: 'conic-gradient(#E9A7B3 0% 50.5%, #FED7E2 50.5% 100%)' }}>
+                <div className="pie-center">
+                  <div className="pie-total">7,043</div>
+                  <div className="pie-total-lbl">Pelanggan</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="gender-details-list">
+              <div className="gender-detail-item">
+                <div className="gender-color-dot" style={{ backgroundColor: '#E9A7B3' }}></div>
+                <div className="gender-info-text">
+                  <span className="gender-name">Laki-laki (Male)</span>
+                  <span className="gender-count"><strong>3,555</strong> (50.5%)</span>
+                  <span className="gender-churn-rate">Churn: <strong className="txt-danger">26.2%</strong> (930)</span>
+                </div>
+              </div>
+              <div className="gender-detail-item">
+                <div className="gender-color-dot" style={{ backgroundColor: '#FED7E2' }}></div>
+                <div className="gender-info-text">
+                  <span className="gender-name">Perempuan (Female)</span>
+                  <span className="gender-count"><strong>3,488</strong> (49.5%)</span>
+                  <span className="gender-churn-rate">Churn: <strong className="txt-danger">26.9%</strong> (939)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Charts Row 2: Contract + Internet */}
+      <div className="chart-row">
         {/* Bar Chart: Churn Rate by Contract */}
         <div className="chart-card">
           <div className="chart-title">Churn Rate by Contract Type</div>
@@ -102,10 +139,8 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Charts Row 2: Internet Service + Payment Method */}
-      <div className="chart-row">
+        {/* Bar Chart: Churn Rate by Internet Service */}
         <div className="chart-card">
           <div className="chart-title">Churn Rate by Internet Service</div>
           <div className="bar-chart">
@@ -138,7 +173,11 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
+      </div>
 
+      {/* Charts Row 3: Payment + Demographics */}
+      <div className="chart-row">
+        {/* Bar Chart: Churn Rate by Payment Method */}
         <div className="chart-card">
           <div className="chart-title">Churn Rate by Payment Method</div>
           <div className="bar-chart">
@@ -180,61 +219,8 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Charts Row 3: Tenure + Demographics */}
-      <div className="chart-row">
-        <div className="chart-card">
-          <div className="chart-title">Churn Rate by Tenure Group</div>
-          <div className="bar-chart">
-            <div className="bar-row">
-              <div className="bar-label">0 – 6 bulan</div>
-              <div className="bar-track">
-                <div className="bar-fill bar-fill-danger" style={{ width: '52.9%' }}>
-                  <span className="bar-value">52.9%</span>
-                </div>
-              </div>
-              <div className="bar-count">784 / 1,481</div>
-            </div>
-            <div className="bar-row">
-              <div className="bar-label">7 – 12 bulan</div>
-              <div className="bar-track">
-                <div className="bar-fill bar-fill-danger" style={{ width: '35.9%' }}>
-                  <span className="bar-value">35.9%</span>
-                </div>
-              </div>
-              <div className="bar-count">253 / 705</div>
-            </div>
-            <div className="bar-row">
-              <div className="bar-label">13 – 24 bulan</div>
-              <div className="bar-track">
-                <div className="bar-fill bar-fill-warning" style={{ width: '28.7%' }}>
-                  <span className="bar-value">28.7%</span>
-                </div>
-              </div>
-              <div className="bar-count">294 / 1,024</div>
-            </div>
-            <div className="bar-row">
-              <div className="bar-label">25 – 48 bulan</div>
-              <div className="bar-track">
-                <div className="bar-fill bar-fill-info" style={{ width: '20.4%' }}>
-                  <span className="bar-value">20.4%</span>
-                </div>
-              </div>
-              <div className="bar-count">325 / 1,594</div>
-            </div>
-            <div className="bar-row">
-              <div className="bar-label">49 – 72 bulan</div>
-              <div className="bar-track">
-                <div className="bar-fill bar-fill-success" style={{ width: '9.5%' }}>
-                  <span className="bar-value">9.5%</span>
-                </div>
-              </div>
-              <div className="bar-count">213 / 2,239</div>
-            </div>
-          </div>
-        </div>
-
+        {/* Bar Chart: Churn Rate by Demografi */}
         <div className="chart-card">
           <div className="chart-title">Churn Rate by Demografi</div>
           <div className="bar-chart">
@@ -296,30 +282,110 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Gender row */}
+      {/* Charts Row 4: Tenure (Vertical column chart) + Tech Support/Security */}
       <div className="chart-row">
-        <div className="chart-card chart-card-full">
-          <div className="chart-title">Distribusi Pelanggan</div>
-          <div className="distribution-grid">
-            <div className="dist-item">
-              <div className="dist-label">Male</div>
-              <div className="dist-bar-track">
-                <div className="dist-bar-fill" style={{ width: '50.5%' }}></div>
+        {/* Vertical Column Bar Chart: Tenure */}
+        <div className="chart-card">
+          <div className="chart-title">Churn Rate by Tenure Group</div>
+          <div className="column-chart-container">
+            <div className="column-chart-gridlines">
+              <div className="gridline"><span className="gridline-val">60%</span></div>
+              <div className="gridline"><span className="gridline-val">40%</span></div>
+              <div className="gridline"><span className="gridline-val">20%</span></div>
+              <div className="gridline"><span className="gridline-val">0%</span></div>
+            </div>
+            <div className="column-chart">
+              <div className="column-item">
+                <div className="column-track">
+                  <div className="column-fill column-fill-danger" style={{ height: '88.2%' }}>
+                    <span className="column-value">52.9%</span>
+                  </div>
+                </div>
+                <div className="column-label">0–6 bln</div>
+                <div className="column-sub">784 / 1,481</div>
               </div>
-              <div className="dist-values">
-                <span>3,555 (50.5%)</span>
-                <span className="dist-churn">Churn: 26.2%</span>
+              <div className="column-item">
+                <div className="column-track">
+                  <div className="column-fill column-fill-danger" style={{ height: '59.8%' }}>
+                    <span className="column-value">35.9%</span>
+                  </div>
+                </div>
+                <div className="column-label">7–12 bln</div>
+                <div className="column-sub">253 / 705</div>
+              </div>
+              <div className="column-item">
+                <div className="column-track">
+                  <div className="column-fill column-fill-warning" style={{ height: '47.8%' }}>
+                    <span className="column-value">28.7%</span>
+                  </div>
+                </div>
+                <div className="column-label">13–24 bln</div>
+                <div className="column-sub">294 / 1,024</div>
+              </div>
+              <div className="column-item">
+                <div className="column-track">
+                  <div className="column-fill column-fill-info" style={{ height: '34.0%' }}>
+                    <span className="column-value">20.4%</span>
+                  </div>
+                </div>
+                <div className="column-label">25–48 bln</div>
+                <div className="column-sub">325 / 1,594</div>
+              </div>
+              <div className="column-item">
+                <div className="column-track">
+                  <div className="column-fill column-fill-success" style={{ height: '15.8%' }}>
+                    <span className="column-value">9.5%</span>
+                  </div>
+                </div>
+                <div className="column-label">49–72 bln</div>
+                <div className="column-sub">213 / 2,239</div>
               </div>
             </div>
-            <div className="dist-item">
-              <div className="dist-label">Female</div>
-              <div className="dist-bar-track">
-                <div className="dist-bar-fill" style={{ width: '49.5%' }}></div>
+          </div>
+        </div>
+
+        {/* Churn Rate by Tech Support & Security */}
+        <div className="chart-card">
+          <div className="chart-title">Dampak Layanan Keamanan & Dukungan Teknis</div>
+          <div className="bar-chart" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div className="bar-section-label" style={{ fontSize: '12px', fontWeight: '700', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px', marginTop: '4px' }}>Online Security</div>
+            <div className="bar-row">
+              <div className="bar-label">Tanpa Security</div>
+              <div className="bar-track">
+                <div className="bar-fill bar-fill-danger" style={{ width: '41.8%' }}>
+                  <span className="bar-value">41.8%</span>
+                </div>
               </div>
-              <div className="dist-values">
-                <span>3,488 (49.5%)</span>
-                <span className="dist-churn">Churn: 26.9%</span>
+              <div className="bar-count">1,461 / 3,498</div>
+            </div>
+            <div className="bar-row">
+              <div className="bar-label">Dengan Security</div>
+              <div className="bar-track">
+                <div className="bar-fill bar-fill-success" style={{ width: '14.6%' }}>
+                  <span className="bar-value">14.6%</span>
+                </div>
               </div>
+              <div className="bar-count">295 / 2,019</div>
+            </div>
+            
+            <div className="bar-section-label" style={{ fontSize: '12px', fontWeight: '700', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.5px', marginTop: '8px' }}>Tech Support</div>
+            <div className="bar-row">
+              <div className="bar-label">Tanpa Support</div>
+              <div className="bar-track">
+                <div className="bar-fill bar-fill-danger" style={{ width: '41.6%' }}>
+                  <span className="bar-value">41.6%</span>
+                </div>
+              </div>
+              <div className="bar-count">1,446 / 3,473</div>
+            </div>
+            <div className="bar-row">
+              <div className="bar-label">Dengan Support</div>
+              <div className="bar-track">
+                <div className="bar-fill bar-fill-success" style={{ width: '15.2%' }}>
+                  <span className="bar-value">15.2%</span>
+                </div>
+              </div>
+              <div className="bar-count">310 / 2,044</div>
             </div>
           </div>
         </div>
