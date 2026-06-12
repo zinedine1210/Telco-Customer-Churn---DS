@@ -80,9 +80,9 @@ export default function PredictPage() {
   return (
     <div className="page-container">
       <div className="predict-header">
-        <h1 className="predict-title">🔮 Prediksi Customer Churn</h1>
+        <h1 className="predict-title">Prediksi Customer Churn</h1>
         <p className="predict-subtitle">
-          Isi data pelanggan di bawah ini untuk memprediksi probabilitas churn menggunakan AI model.
+          Isi data pelanggan di bawah ini untuk memprediksi probabilitas churn.
         </p>
       </div>
 
@@ -90,7 +90,6 @@ export default function PredictPage() {
         {/* Section 1: Demografis */}
         <div className="form-section">
           <div className="form-section-header">
-            <div className="form-section-icon">👤</div>
             <div>
               <div className="form-section-title">Informasi Demografis</div>
               <div className="form-section-desc">Data pribadi pelanggan</div>
@@ -158,7 +157,6 @@ export default function PredictPage() {
         {/* Section 2: Layanan Telepon */}
         <div className="form-section">
           <div className="form-section-header">
-            <div className="form-section-icon">📞</div>
             <div>
               <div className="form-section-title">Layanan Telepon</div>
               <div className="form-section-desc">Layanan telepon yang digunakan</div>
@@ -199,7 +197,6 @@ export default function PredictPage() {
         {/* Section 3: Layanan Internet */}
         <div className="form-section">
           <div className="form-section-header">
-            <div className="form-section-icon">🌐</div>
             <div>
               <div className="form-section-title">Layanan Internet</div>
               <div className="form-section-desc">Layanan internet dan fitur tambahan</div>
@@ -316,7 +313,6 @@ export default function PredictPage() {
         {/* Section 4: Informasi Akun */}
         <div className="form-section">
           <div className="form-section-header">
-            <div className="form-section-icon">💳</div>
             <div>
               <div className="form-section-title">Informasi Akun</div>
               <div className="form-section-desc">Detail kontrak dan pembayaran</div>
@@ -429,7 +425,7 @@ export default function PredictPage() {
             alignItems: 'center',
             gap: '8px',
           }}>
-            ⚠️ {error}
+            {error}
           </div>
         )}
 
@@ -446,9 +442,7 @@ export default function PredictPage() {
                 Memproses...
               </>
             ) : (
-              <>
-                🔮 Prediksi Sekarang
-              </>
+              'Prediksi Sekarang'
             )}
           </button>
         </div>

@@ -66,22 +66,19 @@ export default function ResultCard({ result, onClose, onReset }) {
         {/* Risk Badge */}
         <div style={{ marginTop: '20px' }}>
           <span className={`risk-badge ${riskLevel}`}>
-            {riskLevel === 'low' && '🟢'}
-            {riskLevel === 'medium' && '🟡'}
-            {riskLevel === 'high' && '🔴'}
             Risiko {riskLevel === 'low' ? 'Rendah' : riskLevel === 'medium' ? 'Sedang' : 'Tinggi'}
           </span>
         </div>
 
         {/* Prediction */}
         <div className={`result-prediction ${prediction === 'Churn' ? 'churn' : 'not-churn'}`}>
-          {prediction === 'Churn' ? '⚠️ Kemungkinan Churn' : '✅ Kemungkinan Tetap'}
+          {prediction === 'Churn' ? 'Kemungkinan Churn' : 'Kemungkinan Tetap'}
         </div>
 
         {/* Recommendation */}
         <div className="result-recommendation">
           <div className="result-recommendation-title">
-            💡 Rekomendasi
+            Rekomendasi
           </div>
           {recommendation}
         </div>
@@ -89,7 +86,7 @@ export default function ResultCard({ result, onClose, onReset }) {
         {/* Actions */}
         <div className="result-actions">
           <button className="result-btn primary" onClick={onReset}>
-            🔄 Prediksi Lagi
+            Prediksi Lagi
           </button>
           <button className="result-btn secondary" onClick={onClose}>
             Tutup

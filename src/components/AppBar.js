@@ -18,16 +18,6 @@ export default function AppBar() {
           ChurnGuard / <span>{pageInfo.title}</span>
         </div>
       </div>
-      <div className="appbar-right">
-        <div className="appbar-badge">
-          🔔
-          <div className="appbar-badge-dot"></div>
-        </div>
-        <div className="appbar-user">
-          <div className="appbar-user-avatar">A</div>
-          <span className="appbar-user-name">Admin</span>
-        </div>
-      </div>
     </header>
   );
 }
