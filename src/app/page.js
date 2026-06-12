@@ -11,6 +11,7 @@ export default function DashboardPage() {
         <div className="stat-card stat-card-total">
           <div className="stat-label">Total Pelanggan</div>
           <div className="stat-value">7,043</div>
+          <div className="stat-sub">Basis data historis keseluruhan</div>
         </div>
         <div className="stat-card stat-card-danger">
           <div className="stat-label">Pelanggan Churn</div>
@@ -18,7 +19,7 @@ export default function DashboardPage() {
           <div className="stat-change negative">26.5%</div>
         </div>
         <div className="stat-card stat-card-success">
-          <div className="stat-label">Pelanggan Bertahan (Retained)</div>
+          <div className="stat-label">Pelanggan Retained</div>
           <div className="stat-value">5,174</div>
           <div className="stat-change positive">73.5%</div>
         </div>
@@ -42,7 +43,7 @@ export default function DashboardPage() {
       <div className="chart-row">
         {/* Donut Chart: Distribusi Churn */}
         <div className="chart-card">
-          <div className="chart-title">Distribusi Churn vs Bertahan</div>
+          <div className="chart-title">Distribusi Churn vs Retained</div>
           <div className="donut-container">
             <svg className="donut-svg" viewBox="0 0 200 200">
               <circle className="donut-bg" cx="100" cy="100" r="70" />
@@ -65,8 +66,12 @@ export default function DashboardPage() {
             </div>
             <div className="legend-item">
               <span className="legend-dot legend-dot-success"></span>
-              <span>Bertahan — 5,174 (73.5%)</span>
+              <span>Retained — 5,174 (73.5%)</span>
             </div>
+          </div>
+
+          <div className="line-chart-insight" style={{ marginTop: '24px' }}>
+            <strong>Insight:</strong> Tingkat churn rata-rata adalah 26.5% (1,869 pelanggan). Mayoritas pelanggan (73.5%) berhasil dipertahankan sebagai pelanggan aktif (*retained*).
           </div>
         </div>
 
@@ -142,7 +147,7 @@ export default function DashboardPage() {
             </div>
             <div className="legend-item" style={{ margin: 0 }}>
               <span className="legend-dot legend-dot-success"></span>
-              <span>Bertahan (Retained)</span>
+              <span>Retained</span>
             </div>
           </div>
 

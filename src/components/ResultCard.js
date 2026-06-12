@@ -216,7 +216,7 @@ export default function ResultCard({ result, formData, onReset }) {
             </span>
           </div>
           <div className={`result-prediction ${prediction === 'Churn' ? 'churn' : 'not-churn'}`} style={{ fontSize: '18px' }}>
-            {prediction === 'Churn' ? 'Prediksi: Churn' : 'Prediksi: Bertahan (Retained)'}
+            {prediction === 'Churn' ? 'Prediksi: Churn' : 'Prediksi: Retained'}
           </div>
         </div>
       </div>

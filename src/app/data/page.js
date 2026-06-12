@@ -181,7 +181,7 @@ export default function DataPage() {
           <select className="form-select filter-select" value={filterChurn} onChange={handleFilterChange(filterChurn => setFilterChurn(filterChurn))} id="filter-churn">
             <option value="">Semua Status</option>
             <option value="Yes">Churn</option>
-            <option value="No">Bertahan</option>
+            <option value="No">Retained</option>
           </select>
 
           <button className="filter-clear-btn" onClick={clearFilters} type="button">
@@ -232,8 +232,10 @@ export default function DataPage() {
                       cellVal = cellVal === 'Female' ? 'Perempuan' : cellVal === 'Male' ? 'Laki-laki' : cellVal;
                     } else if (col.key === 'SeniorCitizen') {
                       cellVal = cellVal === '1' || cellVal === 1 ? 'Lansia' : 'Bukan Lansia';
-                    } else if (['Partner', 'Dependents', 'PhoneService', 'PaperlessBilling', 'Churn'].includes(col.key)) {
+                    } else if (['Partner', 'Dependents', 'PhoneService', 'PaperlessBilling'].includes(col.key)) {
                       cellVal = cellVal === 'Yes' ? 'Ya' : cellVal === 'No' ? 'Tidak' : cellVal;
+                    } else if (col.key === 'Churn') {
+                      cellVal = cellVal === 'Yes' ? 'Churn' : 'Retained';
                     } else if (col.key === 'InternetService') {
                       cellVal = cellVal === 'Fiber optic' ? 'Serat Optik' : cellVal === 'No' ? 'Tanpa Internet' : cellVal;
                     } else if (col.key === 'Contract') {

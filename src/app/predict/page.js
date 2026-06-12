@@ -479,7 +479,15 @@ export default function PredictPage() {
             />
           ) : (
             <div className="predict-placeholder-card">
-              <div className="placeholder-icon">📊</div>
+              <div className="placeholder-icon" style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--pink-400)' }}>
+                  <line x1="18" y1="20" x2="18" y2="10" />
+                  <line x1="12" y1="20" x2="12" y2="4" />
+                  <line x1="6" y1="20" x2="6" y2="14" />
+                  <line x1="2" y1="20" x2="22" y2="20" />
+                  <path d="M2 17l4.5-4.5 4 4L22 4" />
+                </svg>
+              </div>
               <h3>Belum Ada Hasil Prediksi</h3>
               <p>
                 Isi formulir data pelanggan di sebelah kiri, kemudian klik tombol <strong>Mulai Prediksi</strong> di bawah untuk memproses dan menganalisis probabilitas churn pelanggan secara real-time di panel ini.
