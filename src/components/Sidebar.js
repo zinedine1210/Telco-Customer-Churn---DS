@@ -16,7 +16,7 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <div className="sidebar-logo-box">TCA</div>
+        <img src="/logo_telco_churn.png" alt="Logo" className="sidebar-logo-img" />
         <div>
           <div className="sidebar-title">Telco Churn Analyzer</div>
           <div className="sidebar-subtitle">CUSTOMER CHURN ANALYSIS</div>
