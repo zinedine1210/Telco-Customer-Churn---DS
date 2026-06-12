@@ -7,17 +7,19 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   const navItems = [
-    { href: '/', label: 'Beranda' },
-    { href: '/predict', label: 'Prediksi Churn' },
+    { href: '/', label: 'Dashboard' },
+    { href: '/predict', label: 'Prediksi' },
+    { href: '/data', label: 'Data' },
+    { href: '/reports', label: 'Reports' },
   ];
 
   return (
     <aside className="sidebar">
       <div className="sidebar-brand">
-        <div className="sidebar-logo">CG</div>
+        <div className="sidebar-logo">TCA</div>
         <div>
-          <div className="sidebar-title">ChurnGuard</div>
-          <div className="sidebar-subtitle">Telco Analytics</div>
+          <div className="sidebar-title">Telco Churn Analyzer</div>
+          <div className="sidebar-subtitle">Customer Churn Analysis</div>
         </div>
       </div>
 

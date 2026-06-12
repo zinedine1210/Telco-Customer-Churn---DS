@@ -3,8 +3,10 @@
 import { usePathname } from 'next/navigation';
 
 const pageTitles = {
-  '/': { title: 'Beranda', breadcrumb: 'Dashboard' },
+  '/': { title: 'Dashboard', breadcrumb: 'Overview' },
   '/predict': { title: 'Prediksi Churn', breadcrumb: 'Analisis Pelanggan' },
+  '/data': { title: 'Data Explorer', breadcrumb: 'Tabel Data' },
+  '/reports': { title: 'Reports', breadcrumb: 'Laporan Analisis' },
 };
 
 export default function AppBar() {
@@ -15,7 +17,7 @@ export default function AppBar() {
     <header className="appbar">
       <div className="appbar-left">
         <div className="appbar-breadcrumb">
-          ChurnGuard / <span>{pageInfo.title}</span>
+          Telco Churn Analyzer / <span>{pageInfo.title}</span>
         </div>
       </div>
     </header>

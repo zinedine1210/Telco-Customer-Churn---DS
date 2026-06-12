@@ -1,18 +1,24 @@
 """
-FastAPI backend for Telco Customer Churn Prediction (Pure Python Inference).
-Endpoint: POST /api/predict
+FastAPI backend for Telco Customer Churn Analyzer.
+Endpoints:
+  - POST /api/predict
+  - GET  /api/customers
+  - GET  /api/health
+  - GET  /api/model-info
 """
 
 import os
+import csv
 import json
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import List
 
 # ─── Paths ───────────────────────────────────────────────────────────
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_EXPORT_PATH = os.path.join(SCRIPT_DIR, "model", "model_export.json")
+CSV_PATH = os.path.join(SCRIPT_DIR, "..", "telco_customer_churn.csv")
 
 # ─── Load JSON model ────────────────────────────────────────────────
 if not os.path.exists(MODEL_EXPORT_PATH):
@@ -28,14 +34,22 @@ label_encoders = model_data["label_encoders"]
 scaler_info = model_data["scaler"]
 trees = model_data["trees"]
 
+# ─── Load CSV data ──────────────────────────────────────────────────
+csv_data: List[dict] = []
+if os.path.exists(CSV_PATH):
+    with open(CSV_PATH, "r", encoding="utf-8-sig") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            cleaned = {k.strip(): v.strip() for k, v in row.items()}
+            csv_data.append(cleaned)
+
 # ─── FastAPI App ─────────────────────────────────────────────────────
 app = FastAPI(
-    title="Telco Churn Prediction API",
-    description="Predict customer churn probability based on customer attributes.",
+    title="Telco Churn Analyzer API",
+    description="Predict customer churn and explore telco customer data.",
     version="1.0.0",
 )
 
-# CORS for Next.js frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -45,7 +59,7 @@ app.add_middleware(
 )
 
 
-# ─── Request Schema ─────────────────────────────────────────────────
+# ─── Schemas ─────────────────────────────────────────────────────────
 class CustomerData(BaseModel):
     gender: str = Field(..., description="Male or Female")
     SeniorCitizen: int = Field(..., description="0 or 1")
@@ -71,7 +85,6 @@ class CustomerData(BaseModel):
     TotalCharges: float = Field(..., ge=0, description="Total charges amount")
 
 
-# ─── Response Schema ────────────────────────────────────────────────
 class PredictionResponse(BaseModel):
     churn_probability: float
     prediction: str
@@ -79,7 +92,7 @@ class PredictionResponse(BaseModel):
     recommendation: str
 
 
-# Helper function for traversing a tree
+# ─── Helpers ─────────────────────────────────────────────────────────
 def predict_tree(tree, x):
     node = 0
     children_left = tree["children_left"]
@@ -87,13 +100,13 @@ def predict_tree(tree, x):
     feature = tree["feature"]
     threshold = tree["threshold"]
     value = tree["value"]
-    
+
     while True:
         left = children_left[node]
         right = children_right[node]
         if left == -1 and right == -1:
             return value[node][0]
-        
+
         feat = feature[node]
         val = x[feat]
         thresh = threshold[node]
@@ -109,18 +122,70 @@ def health_check():
     return {"status": "healthy", "model": "RandomForestClassifier", "version": "1.0.0"}
 
 
+@app.get("/api/customers")
+def get_customers(
+    page: int = Query(1, ge=1),
+    per_page: int = Query(20, ge=1, le=100),
+    search: str = Query("", description="Search by customerID"),
+    gender: str = Query("", description="Filter by gender"),
+    senior: str = Query("", description="Filter by SeniorCitizen (0 or 1)"),
+    contract: str = Query("", description="Filter by Contract"),
+    internet: str = Query("", description="Filter by InternetService"),
+    payment: str = Query("", description="Filter by PaymentMethod"),
+    churn: str = Query("", description="Filter by Churn (Yes or No)"),
+    sort_by: str = Query("", description="Column name to sort by"),
+    sort_dir: str = Query("asc", description="Sort direction: asc or desc"),
+):
+    """Return paginated, filtered, and sorted customer data from CSV."""
+    filtered = csv_data
+
+    if search:
+        search_lower = search.lower()
+        filtered = [r for r in filtered if search_lower in r.get("customerID", "").lower()]
+
+    if gender:
+        filtered = [r for r in filtered if r.get("gender") == gender]
+    if senior:
+        filtered = [r for r in filtered if r.get("SeniorCitizen") == senior]
+    if contract:
+        filtered = [r for r in filtered if r.get("Contract") == contract]
+    if internet:
+        filtered = [r for r in filtered if r.get("InternetService") == internet]
+    if payment:
+        filtered = [r for r in filtered if r.get("PaymentMethod") == payment]
+    if churn:
+        filtered = [r for r in filtered if r.get("Churn") == churn]
+
+    if sort_by and sort_by in (csv_data[0].keys() if csv_data else []):
+        reverse = sort_dir.lower() == "desc"
+        try:
+            filtered = sorted(filtered, key=lambda r: float(r.get(sort_by, 0) or 0), reverse=reverse)
+        except (ValueError, TypeError):
+            filtered = sorted(filtered, key=lambda r: r.get(sort_by, ""), reverse=reverse)
+
+    total = len(filtered)
+    total_pages = max(1, (total + per_page - 1) // per_page)
+    start = (page - 1) * per_page
+    end = start + per_page
+
+    return {
+        "data": filtered[start:end],
+        "total": total,
+        "page": page,
+        "per_page": per_page,
+        "total_pages": total_pages,
+    }
+
+
 @app.post("/api/predict", response_model=PredictionResponse)
 def predict_churn(customer: CustomerData):
     try:
-        # Build dict from input
         data = customer.model_dump()
 
-        # Preprocess features into a flat list in the correct order
         x_features = []
         for col in feature_columns:
             if col in numerical_cols:
                 val = float(data[col])
-                # Scale
                 idx = numerical_cols.index(col)
                 mean = scaler_info["mean"][idx]
                 scale = scaler_info["scale"][idx]
@@ -129,20 +194,16 @@ def predict_churn(customer: CustomerData):
             else:
                 val_str = str(data[col])
                 encoded_dict = label_encoders[col]
-                # Default to 0 or first class value if category is unseen
                 encoded = encoded_dict.get(val_str, 0)
                 x_features.append(encoded)
 
-        # Predict churn probability by averaging the predictions from all trees
         probs = []
         for tree in trees:
             val = predict_tree(tree, x_features)
-            # val is [prob_class_0, prob_class_1]
             probs.append(val[1])
 
-        churn_prob = (sum(probs) / len(probs)) * 100  # percentage
+        churn_prob = (sum(probs) / len(probs)) * 100
 
-        # Determine risk level
         if churn_prob < 30:
             risk_level = "Low"
             recommendation = "Customer ini memiliki risiko churn yang rendah. Pertahankan kualitas layanan saat ini dan berikan penawaran loyalitas untuk menjaga kepuasan pelanggan."
@@ -151,7 +212,7 @@ def predict_churn(customer: CustomerData):
             recommendation = "Customer ini memiliki risiko churn sedang. Pertimbangkan untuk menawarkan diskon atau upgrade layanan untuk meningkatkan retensi. Hubungi customer untuk mengetahui keluhannya."
         else:
             risk_level = "High"
-            recommendation = "⚠️ Customer ini berisiko tinggi untuk churn! Segera lakukan intervensi: tawarkan kontrak jangka panjang dengan diskon, upgrade layanan gratis, atau hubungi langsung untuk menyelesaikan masalah."
+            recommendation = "Customer ini berisiko tinggi untuk churn. Segera lakukan intervensi: tawarkan kontrak jangka panjang dengan diskon, upgrade layanan gratis, atau hubungi langsung untuk menyelesaikan masalah."
 
         prediction = "Churn" if churn_prob >= 50 else "Not Churn"
 
@@ -177,4 +238,3 @@ def model_info():
         "numerical_features": numerical_cols,
         "total_features": len(feature_columns),
     }
-

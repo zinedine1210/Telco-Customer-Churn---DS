@@ -3,9 +3,9 @@ import Sidebar from '@/components/Sidebar';
 import AppBar from '@/components/AppBar';
 
 export const metadata = {
-  title: 'ChurnGuard - Telco Customer Churn Prediction',
-  description: 'AI-powered customer churn prediction system for telecommunications. Analyze customer data and predict churn probability to improve retention strategies.',
-  keywords: 'churn prediction, customer retention, telco analytics, machine learning',
+  title: 'Telco Churn Analyzer — Customer Churn Analysis Dashboard',
+  description: 'Dashboard analisis customer churn untuk perusahaan telekomunikasi. Eksplorasi data pelanggan, prediksi churn, dan temukan insight untuk strategi retensi.',
+  keywords: 'churn analysis, customer retention, telco analytics, machine learning, data mining',
 };
 
 export default function RootLayout({ children }) {
