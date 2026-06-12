@@ -1420,27 +1420,43 @@ body {
   gap: 14px;
 }
 
+.bar-chart-vertical-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
 .bar-row {
-  display: grid;
-  grid-template-columns: 130px 1fr 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.bar-info-row {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  width: 100%;
 }
 
 .bar-label {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-secondary);
-  text-align: right;
-  white-space: nowrap;
+  text-align: left;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.4;
 }
 
 .bar-track {
-  height: 24px;
+  height: 20px;
   background: #F3F4F6;
   border-radius: var(--radius-sm);
   overflow: hidden;
   position: relative;
+  width: 100%;
 }
 
 .bar-fill {
@@ -1448,7 +1464,7 @@ body {
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
-  min-width: 40px;
+  min-width: 45px;
   transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1456,9 +1472,10 @@ body {
 .bar-fill-warning { background: #FCD34D; }
 .bar-fill-success { background: #6EE7B7; }
 .bar-fill-info { background: #93C5FD; }
+.bar-fill-blue-soft { background: #90CDF4; }
 
 .bar-value {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
   color: var(--text-primary);
   padding-left: 8px;
@@ -1467,6 +1484,7 @@ body {
 
 .bar-count {
   font-size: 12px;
+  font-weight: 500;
   color: var(--text-muted);
   white-space: nowrap;
 }
